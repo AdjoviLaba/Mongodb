@@ -24,22 +24,19 @@ To get this project up and running locally, follow these steps:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone [https://github.com/your-username/your-repo-name.git](https://github.com/AdjoviLaba/Mongodb.git)
+   cd Mongodb
    ```
 
 2. **Set Up a Virtual Environment** (Optional, but recommended)
    ```bash
    python -m venv venv
-   # On Windows
-   venv\Scripts\activate
-   # On Unix or MacOS
    source venv/bin/activate
    ```
 
 3. **Install Dependencies**
    ```bash
-   pip install fastapi uvicorn pymongo
+   pip install -r requirements.txt
    ```
 
 4. **Environment Configuration**
@@ -74,12 +71,6 @@ Contributions to this project are welcome. Please fork the repository and submit
 
 ---
 
-### Customization Notes:
 
-- Replace `https://github.com/your-username/your-repo-name.git` with the actual URL of your GitHub repository.
-- If you have a `requirements.txt` file, you can replace the `pip install` command with `pip install -r requirements.txt`.
-- Update the MongoDB connection URI setup instructions based on your application's configuration.
-- Modify the API endpoints section according to the actual endpoints your application provides.
-- If you have a license file, link it correctly in the License section.
 
 This README provides a basic structure to help users understand and use your application. You can expand it with more details specific to your project as needed.
