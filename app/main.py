@@ -1,12 +1,18 @@
 from fastapi import FastAPI
-from models import PersonModel
-from database import db  # Assuming you have a database.py for MongoDB connection
+from dotenv import dotenv_values
+from pymongo import MongoClient
+from route import router as person_router
+
+config = dotenv_values(".env")
 
 app = FastAPI()
 
-@app.post("/persons/", response_model=PersonModel)
-async def create_person(person: PersonModel):
-    person_dict = person.model_dump(by_alias=True)
-    result = await db["persons"].insert_one(person_dict)
-    new_person = await db["persons"].find_one({"_id": result.inserted_id})
-    return new_person
+async def startup_event():
+    app.mongodb_client = MongoClient(config["ATLAS_URI"])
+    app.database = app.mongodb_client[config["DB_NAME"]]
+
+async def shutdown_db_client():
+    app.mongodb_client.close()
+
+app.include_router(person_router, tags=["persons"], prefix="/person")
+

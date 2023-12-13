@@ -1,39 +1,40 @@
-from pydantic import BaseModel, Field
-from bson import ObjectId
+import uuid
 from typing import Optional
+from pydantic import BaseModel, Field
 
-class PyObjectId(ObjectId):
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v):
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid ObjectId")
-        return ObjectId(v)
-
-    @classmethod
-    def __get_pydantic_json_schema__(cls, schema):
-        return {"type": "string"}
-
-class PersonModel(BaseModel):
-    id: Optional[PyObjectId] = Field(alias='_id')
-    name: str
-    last_name: str
-    address: str
-    tel: str
+class Person(BaseModel):
+    id: str = Field(default_factory=uuid.uuid4, alias="_id")
+    name: str = Field(...)
+    last_name: str = Field(...)
+    adress: str = Field(...)
+    phone: str = Field(...)
 
     class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {
-            ObjectId: str
-        }
+        allow_population_by_field_name = True
         schema_extra = {
             "example": {
-                "name": "John",
-                "last_name": "Doe",
-                "address": "123 Main St",
-                "tel": "123-456-7890"
+                "_id": "066de609-b04a-4b30-b46c-32537c7f1f6e",
+                "name": "Don Quixote",
+                "last_name": "Miguel de Cervantes",
+                "adress": "...",
+                "phone": "336-567-9094"
+            }
+        }
+
+
+class PersonUpdate(BaseModel):
+    name: Optional[str]
+    last_name: Optional[str]
+    adress: Optional[str]
+    phone: Optional[str]
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "_id": "066de609-b04a-4b30-b46c-32537c7f1f6e",
+                "name": "Don Quixote",
+                "last_name": "Miguel de Cervantes",
+                "adress": "...",
+                "phone": "336-567-9094"
             }
         }
