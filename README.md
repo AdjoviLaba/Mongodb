@@ -1,7 +1,3 @@
-Certainly! Below is a step-by-step README template for your FastAPI project with MongoDB, which includes CRUD operations for a `Person` entity. You can customize this README to better fit the specifics of your project.
-
----
-
 # FastAPI MongoDB CRUD Application
 
 ## Introduction
