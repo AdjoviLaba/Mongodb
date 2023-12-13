@@ -22,6 +22,7 @@ To get this project up and running locally, follow these steps:
    ```bash
    git clone https://github.com/AdjoviLaba/Mongodb.git
    cd Mongodb
+
    ```
 
 2. **Set Up a Virtual Environment** (Optional, but recommended)
@@ -33,6 +34,7 @@ To get this project up and running locally, follow these steps:
 3. **Install Dependencies**
    ```bash
    pip install -r requirements.txt
+
    ```
 
 4. **Environment Configuration**
