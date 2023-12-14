@@ -15,4 +15,3 @@ async def shutdown_db_client():
     app.mongodb_client.close()
 
 app.include_router(person_router, tags=["persons"], prefix="/person")
-
