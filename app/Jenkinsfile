@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define your SonarCloud token as an environment variable
+        // Make sure to add SONAR_TOKEN in Jenkins credentials
+        SONAR_TOKEN = credentials('SONAR_TOKEN_ID')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your code from the Git repository
+                checkout scm
+            }
+        }
+
+        stage('Run SonarCloud Analysis') {
+            steps {
+                withSonarQubeEnv('SonarCloud') { // 'SonarCloud' is the name you configured in Jenkins for SonarQube Scanner
+                    script {
+                        // Run SonarScanner
+                        sh '''
+                        sonar-scanner \
+                          -Dsonar.projectKey=AdjoviLaba_Mongodb \
+                          -Dsonar.organization=labanoelie \
+                          -Dsonar.sources=. \
+                          -Dsonar.host.url=https://sonarcloud.io \
+                          -Dsonar.login=${env.SONAR_TOKEN_ID}
+                        '''
+                    }
+                }
+            }
+        }
+
+        // Add other stages as needed (e.g., build, test, deploy)
+    }
+
+    post {
+        always {
+            // Actions to perform after the pipeline execution
+        }
+    }
+}
